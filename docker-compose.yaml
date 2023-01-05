@@ -19,7 +19,7 @@ services:
       - back-network
     environment:
       - TZ=Asia/Seoul
-  # certbot:
-  #   container_name: certbot
-  #   image: certbot/certbot:arm64v8-nightly
-  #   restart: unless-stopped
+  certbot:
+    container_name: certbot
+    image: certbot/certbot:arm64v8-nightly
+    restart: unless-stopped
