@@ -1,0 +1,18 @@
+# build stage
+FROM node:lts-alpine as build-stage
+LABEL h2s <hseungsik330@gmail.com>
+ENV CONTAINER PATH /var/www/docker-vue
+WORKDIR $CONTAINER PATH
+COPY ./Web/Nginx/Vuejs/package*.json ./
+RUN npm install
+#RUN npm install --production #production은 의존성 모듈만 표시
+COPY ./Web/Nginx/Vuejs/ .
+RUN npm run build
+#CMD ["npm","run","serve"]
+
+# production stage
+FROM nginx:stable-alpine as production-stage
+ARG conf
+#COPY --from=build-stage /var/www/docker-vue/dist /usr/share/nginx/html
+COPY $conf/nginx.conf /etc/nginx/nginx.conf
+CMD ["nginx", "-g", "daemon off;"]

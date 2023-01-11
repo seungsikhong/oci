@@ -1,0 +1,8 @@
+FROM node:14
+LABEL h2s <hseungsik330@gmail.com>
+
+ARG dir
+EXPOSE 3000
+COPY $dir/app.js /var/www/app.js
+WORKDIR /var/www
+CMD ["node", "app.js"]
